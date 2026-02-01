@@ -70,9 +70,9 @@ export function formatGatewayServiceDescription(params?: {
     parts.push(`v${version}`);
   }
   if (parts.length === 0) {
-    return "OpenClaw Gateway";
+    return "OpenHedgehog Gateway";
   }
-  return `OpenClaw Gateway (${parts.join(", ")})`;
+  return `OpenHedgehog Gateway (${parts.join(", ")})`;
 }
 
 export function resolveNodeLaunchAgentLabel(): string {
@@ -90,7 +90,7 @@ export function resolveNodeWindowsTaskName(): string {
 export function formatNodeServiceDescription(params?: { version?: string }): string {
   const version = params?.version?.trim();
   if (!version) {
-    return "OpenClaw Node Host";
+    return "OpenHedgehog Node Host";
   }
-  return `OpenClaw Node Host (v${version})`;
+  return `OpenHedgehog Node Host (v${version})`;
 }

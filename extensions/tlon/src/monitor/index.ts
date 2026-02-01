@@ -1,4 +1,4 @@
-import type { RuntimeEnv, ReplyPayload, OpenClawConfig } from "openclaw/plugin-sdk";
+import type { RuntimeEnv, ReplyPayload, OpenHedgehogConfig } from "openhedgehog/plugin-sdk";
 import { format } from "node:util";
 import { getTlonRuntime } from "../runtime.js";
 import { normalizeShip, parseChannelNest } from "../targets.js";
@@ -29,7 +29,7 @@ type ChannelAuthorization = {
 };
 
 function resolveChannelAuthorization(
-  cfg: OpenClawConfig,
+  cfg: OpenHedgehogConfig,
   channelNest: string,
 ): { mode: "restricted" | "open"; allowedShips: string[] } {
   const tlonConfig = cfg.channels?.tlon as

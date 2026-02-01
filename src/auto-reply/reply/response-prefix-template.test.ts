@@ -51,16 +51,16 @@ describe("resolveResponsePrefixTemplate", () => {
 
   it("resolves {identity.name} variable", () => {
     const result = resolveResponsePrefixTemplate("[{identity.name}]", {
-      identityName: "OpenClaw",
+      identityName: "OpenHedgehog",
     });
-    expect(result).toBe("[OpenClaw]");
+    expect(result).toBe("[OpenHedgehog]");
   });
 
   it("resolves {identityName} as alias", () => {
     const result = resolveResponsePrefixTemplate("[{identityName}]", {
-      identityName: "OpenClaw",
+      identityName: "OpenHedgehog",
     });
-    expect(result).toBe("[OpenClaw]");
+    expect(result).toBe("[OpenHedgehog]");
   });
 
   it("resolves multiple variables", () => {
@@ -103,13 +103,13 @@ describe("resolveResponsePrefixTemplate", () => {
     const result = resolveResponsePrefixTemplate(
       "[{identity.name}] {provider}/{model} (think:{thinkingLevel})",
       {
-        identityName: "OpenClaw",
+        identityName: "OpenHedgehog",
         provider: "anthropic",
         model: "claude-opus-4-5",
         thinkingLevel: "high",
       },
     );
-    expect(result).toBe("[OpenClaw] anthropic/claude-opus-4-5 (think:high)");
+    expect(result).toBe("[OpenHedgehog] anthropic/claude-opus-4-5 (think:high)");
   });
 });
 

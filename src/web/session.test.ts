@@ -108,7 +108,13 @@ describe("web session", () => {
   });
 
   it("does not clobber creds backup when creds.json is corrupted", async () => {
-    const credsSuffix = path.join(".openclaw", "credentials", "whatsapp", "default", "creds.json");
+    const credsSuffix = path.join(
+      ".openhedgehog",
+      "credentials",
+      "whatsapp",
+      "default",
+      "creds.json",
+    );
 
     const copySpy = vi.spyOn(fsSync, "copyFileSync").mockImplementation(() => {});
     const existsSpy = vi.spyOn(fsSync, "existsSync").mockImplementation((p) => {

@@ -97,7 +97,7 @@ export type ImageDescriptionRequest = {
   profile?: string;
   preferredProfile?: string;
   agentDir: string;
-  cfg: import("../config/config.js").OpenClawConfig;
+  cfg: import("../config/config.js").OpenHedgehogConfig;
 };
 
 export type ImageDescriptionResult = {

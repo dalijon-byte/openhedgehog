@@ -1,4 +1,4 @@
-import type { ChannelGroupContext } from "openclaw/plugin-sdk";
+import type { ChannelGroupContext } from "openhedgehog/plugin-sdk";
 import { resolveMattermostAccount } from "./mattermost/accounts.js";
 
 export function resolveMattermostGroupRequireMention(

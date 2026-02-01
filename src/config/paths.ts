@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawConfig } from "./types.js";
+import type { OpenHedgehogConfig } from "./types.js";
 
 /**
  * Nix mode detection: When OPENHEDGEHOG_NIX_MODE=1, the gateway is running under Nix.
@@ -234,7 +234,7 @@ export function resolveOAuthPath(
 }
 
 export function resolveGatewayPort(
-  cfg?: OpenClawConfig,
+  cfg?: OpenHedgehogConfig,
   env: NodeJS.ProcessEnv = process.env,
 ): number {
   const envRaw = env.OPENHEDGEHOG_GATEWAY_PORT?.trim() || env.CLAWDBOT_GATEWAY_PORT?.trim();

@@ -7,7 +7,7 @@ describe("parseCliProfileArgs", () => {
   it("leaves gateway --dev for subcommands", () => {
     const res = parseCliProfileArgs([
       "node",
-      "openclaw",
+      "openhedgehog",
       "gateway",
       "--dev",
       "--allow-unconfigured",
@@ -16,39 +16,53 @@ describe("parseCliProfileArgs", () => {
       throw new Error(res.error);
     }
     expect(res.profile).toBeNull();
-    expect(res.argv).toEqual(["node", "openclaw", "gateway", "--dev", "--allow-unconfigured"]);
+    expect(res.argv).toEqual(["node", "openhedgehog", "gateway", "--dev", "--allow-unconfigured"]);
   });
 
   it("still accepts global --dev before subcommand", () => {
-    const res = parseCliProfileArgs(["node", "openclaw", "--dev", "gateway"]);
+    const res = parseCliProfileArgs(["node", "openhedgehog", "--dev", "gateway"]);
     if (!res.ok) {
       throw new Error(res.error);
     }
     expect(res.profile).toBe("dev");
-    expect(res.argv).toEqual(["node", "openclaw", "gateway"]);
+    expect(res.argv).toEqual(["node", "openhedgehog", "gateway"]);
   });
 
   it("parses --profile value and strips it", () => {
-    const res = parseCliProfileArgs(["node", "openclaw", "--profile", "work", "status"]);
+    const res = parseCliProfileArgs(["node", "openhedgehog", "--profile", "work", "status"]);
     if (!res.ok) {
       throw new Error(res.error);
     }
     expect(res.profile).toBe("work");
-    expect(res.argv).toEqual(["node", "openclaw", "status"]);
+    expect(res.argv).toEqual(["node", "openhedgehog", "status"]);
   });
 
   it("rejects missing profile value", () => {
-    const res = parseCliProfileArgs(["node", "openclaw", "--profile"]);
+    const res = parseCliProfileArgs(["node", "openhedgehog", "--profile"]);
     expect(res.ok).toBe(false);
   });
 
   it("rejects combining --dev with --profile (dev first)", () => {
-    const res = parseCliProfileArgs(["node", "openclaw", "--dev", "--profile", "work", "status"]);
+    const res = parseCliProfileArgs([
+      "node",
+      "openhedgehog",
+      "--dev",
+      "--profile",
+      "work",
+      "status",
+    ]);
     expect(res.ok).toBe(false);
   });
 
   it("rejects combining --dev with --profile (profile first)", () => {
-    const res = parseCliProfileArgs(["node", "openclaw", "--profile", "work", "--dev", "status"]);
+    const res = parseCliProfileArgs([
+      "node",
+      "openhedgehog",
+      "--profile",
+      "work",
+      "--dev",
+      "status",
+    ]);
     expect(res.ok).toBe(false);
   });
 });
@@ -61,85 +75,87 @@ describe("applyCliProfileEnv", () => {
       env,
       homedir: () => "/home/peter",
     });
-    const expectedStateDir = path.join("/home/peter", ".openclaw-dev");
-    expect(env.OPENCLAW_PROFILE).toBe("dev");
-    expect(env.OPENCLAW_STATE_DIR).toBe(expectedStateDir);
-    expect(env.OPENCLAW_CONFIG_PATH).toBe(path.join(expectedStateDir, "openclaw.json"));
-    expect(env.OPENCLAW_GATEWAY_PORT).toBe("19001");
+    const expectedStateDir = path.join("/home/peter", ".openhedgehog-dev");
+    expect(env.OPENHEDGEHOG_PROFILE).toBe("dev");
+    expect(env.OPENHEDGEHOG_STATE_DIR).toBe(expectedStateDir);
+    expect(env.OPENHEDGEHOG_CONFIG_PATH).toBe(path.join(expectedStateDir, "openhedgehog.json"));
+    expect(env.OPENHEDGEHOG_GATEWAY_PORT).toBe("19001");
   });
 
   it("does not override explicit env values", () => {
     const env: Record<string, string | undefined> = {
-      OPENCLAW_STATE_DIR: "/custom",
-      OPENCLAW_GATEWAY_PORT: "19099",
+      OPENHEDGEHOG_STATE_DIR: "/custom",
+      OPENHEDGEHOG_GATEWAY_PORT: "19099",
     };
     applyCliProfileEnv({
       profile: "dev",
       env,
       homedir: () => "/home/peter",
     });
-    expect(env.OPENCLAW_STATE_DIR).toBe("/custom");
-    expect(env.OPENCLAW_GATEWAY_PORT).toBe("19099");
-    expect(env.OPENCLAW_CONFIG_PATH).toBe(path.join("/custom", "openclaw.json"));
+    expect(env.OPENHEDGEHOG_STATE_DIR).toBe("/custom");
+    expect(env.OPENHEDGEHOG_GATEWAY_PORT).toBe("19099");
+    expect(env.OPENHEDGEHOG_CONFIG_PATH).toBe(path.join("/custom", "openhedgehog.json"));
   });
 });
 
 describe("formatCliCommand", () => {
   it("returns command unchanged when no profile is set", () => {
-    expect(formatCliCommand("openclaw doctor --fix", {})).toBe("openclaw doctor --fix");
+    expect(formatCliCommand("openhedgehog doctor --fix", {})).toBe("openhedgehog doctor --fix");
   });
 
   it("returns command unchanged when profile is default", () => {
-    expect(formatCliCommand("openclaw doctor --fix", { OPENCLAW_PROFILE: "default" })).toBe(
-      "openclaw doctor --fix",
+    expect(formatCliCommand("openhedgehog doctor --fix", { OPENHEDGEHOG_PROFILE: "default" })).toBe(
+      "openhedgehog doctor --fix",
     );
   });
 
   it("returns command unchanged when profile is Default (case-insensitive)", () => {
-    expect(formatCliCommand("openclaw doctor --fix", { OPENCLAW_PROFILE: "Default" })).toBe(
-      "openclaw doctor --fix",
+    expect(formatCliCommand("openhedgehog doctor --fix", { OPENHEDGEHOG_PROFILE: "Default" })).toBe(
+      "openhedgehog doctor --fix",
     );
   });
 
   it("returns command unchanged when profile is invalid", () => {
-    expect(formatCliCommand("openclaw doctor --fix", { OPENCLAW_PROFILE: "bad profile" })).toBe(
-      "openclaw doctor --fix",
-    );
+    expect(
+      formatCliCommand("openhedgehog doctor --fix", { OPENHEDGEHOG_PROFILE: "bad profile" }),
+    ).toBe("openhedgehog doctor --fix");
   });
 
   it("returns command unchanged when --profile is already present", () => {
     expect(
-      formatCliCommand("openclaw --profile work doctor --fix", { OPENCLAW_PROFILE: "work" }),
-    ).toBe("openclaw --profile work doctor --fix");
+      formatCliCommand("openhedgehog --profile work doctor --fix", {
+        OPENHEDGEHOG_PROFILE: "work",
+      }),
+    ).toBe("openhedgehog --profile work doctor --fix");
   });
 
   it("returns command unchanged when --dev is already present", () => {
-    expect(formatCliCommand("openclaw --dev doctor", { OPENCLAW_PROFILE: "dev" })).toBe(
-      "openclaw --dev doctor",
+    expect(formatCliCommand("openhedgehog --dev doctor", { OPENHEDGEHOG_PROFILE: "dev" })).toBe(
+      "openhedgehog --dev doctor",
     );
   });
 
   it("inserts --profile flag when profile is set", () => {
-    expect(formatCliCommand("openclaw doctor --fix", { OPENCLAW_PROFILE: "work" })).toBe(
-      "openclaw --profile work doctor --fix",
+    expect(formatCliCommand("openhedgehog doctor --fix", { OPENHEDGEHOG_PROFILE: "work" })).toBe(
+      "openhedgehog --profile work doctor --fix",
     );
   });
 
   it("trims whitespace from profile", () => {
-    expect(formatCliCommand("openclaw doctor --fix", { OPENCLAW_PROFILE: "  jbopenclaw  " })).toBe(
-      "openclaw --profile jbopenclaw doctor --fix",
-    );
+    expect(
+      formatCliCommand("openhedgehog doctor --fix", { OPENHEDGEHOG_PROFILE: "  jbopenclaw  " }),
+    ).toBe("openhedgehog --profile jbopenclaw doctor --fix");
   });
 
-  it("handles command with no args after openclaw", () => {
-    expect(formatCliCommand("openclaw", { OPENCLAW_PROFILE: "test" })).toBe(
-      "openclaw --profile test",
+  it("handles command with no args after openhedgehog", () => {
+    expect(formatCliCommand("openhedgehog", { OPENHEDGEHOG_PROFILE: "test" })).toBe(
+      "openhedgehog --profile test",
     );
   });
 
   it("handles pnpm wrapper", () => {
-    expect(formatCliCommand("pnpm openclaw doctor", { OPENCLAW_PROFILE: "work" })).toBe(
-      "pnpm openclaw --profile work doctor",
+    expect(formatCliCommand("pnpm openhedgehog doctor", { OPENHEDGEHOG_PROFILE: "work" })).toBe(
+      "pnpm openhedgehog --profile work doctor",
     );
   });
 });

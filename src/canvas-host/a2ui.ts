@@ -105,9 +105,9 @@ export function injectCanvasLiveReload(html: string): string {
 (() => {
   // Cross-platform action bridge helper.
   // Works on:
-  // - iOS: window.webkit.messageHandlers.openclawCanvasA2UIAction.postMessage(...)
-  // - Android: window.openclawCanvasA2UIAction.postMessage(...)
-  const handlerNames = ["openclawCanvasA2UIAction"];
+  // - iOS: window.webkit.messageHandlers.openhedgehogCanvasA2UIAction.postMessage(...)
+  // - Android: window.openhedgehogCanvasA2UIAction.postMessage(...)
+  const handlerNames = ["openhedgehogCanvasA2UIAction"];
   function postToNode(payload) {
     try {
       const raw = typeof payload === "string" ? payload : JSON.stringify(payload);
@@ -134,11 +134,11 @@ export function injectCanvasLiveReload(html: string): string {
     const action = { ...userAction, id };
     return postToNode({ userAction: action });
   }
-  globalThis.OpenClaw = globalThis.OpenClaw ?? {};
-  globalThis.OpenClaw.postMessage = postToNode;
-  globalThis.OpenClaw.sendUserAction = sendUserAction;
-  globalThis.openclawPostMessage = postToNode;
-  globalThis.openclawSendUserAction = sendUserAction;
+  globalThis.OpenHedgehog = globalThis.OpenHedgehog ?? {};
+  globalThis.OpenHedgehog.postMessage = postToNode;
+  globalThis.OpenHedgehog.sendUserAction = sendUserAction;
+  globalThis.openhedgehogPostMessage = postToNode;
+  globalThis.openhedgehogSendUserAction = sendUserAction;
 
   try {
     const proto = location.protocol === "https:" ? "wss" : "ws";

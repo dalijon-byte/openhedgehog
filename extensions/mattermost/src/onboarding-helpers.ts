@@ -1,12 +1,12 @@
-import type { OpenClawConfig, WizardPrompter } from "openclaw/plugin-sdk";
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "openclaw/plugin-sdk";
+import type { OpenHedgehogConfig, WizardPrompter } from "openhedgehog/plugin-sdk";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "openhedgehog/plugin-sdk";
 
 type PromptAccountIdParams = {
-  cfg: OpenClawConfig;
+  cfg: OpenHedgehogConfig;
   prompter: WizardPrompter;
   label: string;
   currentId?: string;
-  listAccountIds: (cfg: OpenClawConfig) => string[];
+  listAccountIds: (cfg: OpenHedgehogConfig) => string[];
   defaultAccountId: string;
 };
 

@@ -16,7 +16,7 @@ export function resolveWideAreaDiscoveryDomain(params?: {
   configDomain?: string | null;
 }): string | null {
   const env = params?.env ?? process.env;
-  const candidate = params?.configDomain ?? env.OPENCLAW_WIDE_AREA_DOMAIN ?? null;
+  const candidate = params?.configDomain ?? env.OPENHEDGEHOG_WIDE_AREA_DOMAIN ?? null;
   return normalizeWideAreaDomain(candidate);
 }
 
@@ -74,7 +74,7 @@ function extractSerial(zoneText: string): number | null {
 }
 
 function extractContentHash(zoneText: string): string | null {
-  const match = zoneText.match(/^\s*;\s*openclaw-content-hash:\s*(\S+)\s*$/m);
+  const match = zoneText.match(/^\s*;\s*openhedgehog-content-hash:\s*(\S+)\s*$/m);
   return match?.[1] ?? null;
 }
 
@@ -104,9 +104,9 @@ export type WideAreaGatewayZoneOpts = {
 };
 
 function renderZone(opts: WideAreaGatewayZoneOpts & { serial: number }): string {
-  const hostname = os.hostname().split(".")[0] ?? "openclaw";
-  const hostLabel = dnsLabel(opts.hostLabel ?? hostname, "openclaw");
-  const instanceLabel = dnsLabel(opts.instanceLabel ?? `${hostname}-gateway`, "openclaw-gw");
+  const hostname = os.hostname().split(".")[0] ?? "openhedgehog";
+  const hostLabel = dnsLabel(opts.hostLabel ?? hostname, "openhedgehog");
+  const instanceLabel = dnsLabel(opts.instanceLabel ?? `${hostname}-gateway`, "openhedgehog-gw");
   const domain = normalizeWideAreaDomain(opts.domain) ?? "local.";
 
   const txt = [
@@ -144,9 +144,11 @@ function renderZone(opts: WideAreaGatewayZoneOpts & { serial: number }): string 
     records.push(`${hostLabel} IN AAAA ${opts.tailnetIPv6}`);
   }
 
-  records.push(`_openclaw-gw._tcp IN PTR ${instanceLabel}._openclaw-gw._tcp`);
-  records.push(`${instanceLabel}._openclaw-gw._tcp IN SRV 0 0 ${opts.gatewayPort} ${hostLabel}`);
-  records.push(`${instanceLabel}._openclaw-gw._tcp IN TXT ${txt.map(txtQuote).join(" ")}`);
+  records.push(`_openhedgehog-gw._tcp IN PTR ${instanceLabel}._openhedgehog-gw._tcp`);
+  records.push(
+    `${instanceLabel}._openhedgehog-gw._tcp IN SRV 0 0 ${opts.gatewayPort} ${hostLabel}`,
+  );
+  records.push(`${instanceLabel}._openhedgehog-gw._tcp IN TXT ${txt.map(txtQuote).join(" ")}`);
 
   const contentBody = `${records.join("\n")}\n`;
   const hashBody = `${records
@@ -156,7 +158,7 @@ function renderZone(opts: WideAreaGatewayZoneOpts & { serial: number }): string 
     .join("\n")}\n`;
   const contentHash = computeContentHash(hashBody);
 
-  return `; openclaw-content-hash: ${contentHash}\n${contentBody}`;
+  return `; openhedgehog-content-hash: ${contentHash}\n${contentBody}`;
 }
 
 export function renderWideAreaGatewayZoneText(

@@ -142,8 +142,8 @@ export async function scanStatus(
       progress.setLabel("Summarizing channels…");
       const channels = await buildChannelsTable(cfg, {
         // Show token previews in regular status; keep `status --all` redacted.
-        // Set `OPENCLAW_SHOW_SECRETS=0` to force redaction.
-        showSecrets: process.env.OPENCLAW_SHOW_SECRETS?.trim() !== "0",
+        // Set `OPENHEDGEHOG_SHOW_SECRETS=0` to force redaction.
+        showSecrets: process.env.OPENHEDGEHOG_SHOW_SECRETS?.trim() !== "0",
       });
       progress.tick();
 

@@ -1,5 +1,5 @@
 import type { AddressInfo } from "node:net";
-import type { OpenClawConfig, PluginRuntime } from "openclaw/plugin-sdk";
+import type { OpenHedgehogConfig, PluginRuntime } from "openhedgehog/plugin-sdk";
 import { createServer } from "node:http";
 import { describe, expect, it } from "vitest";
 import type { ResolvedZaloAccount } from "./types.js";
@@ -37,7 +37,7 @@ describe("handleZaloWebhookRequest", () => {
     const unregister = registerZaloWebhookTarget({
       token: "tok",
       account,
-      config: {} as OpenClawConfig,
+      config: {} as OpenHedgehogConfig,
       runtime: {},
       core,
       secret: "secret",
