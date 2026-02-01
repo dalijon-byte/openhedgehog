@@ -170,6 +170,8 @@ function serveFile(res: ServerResponse, filePath: string) {
   // Static UI should never be cached aggressively while iterating; allow the
   // browser to revalidate.
   res.setHeader("Cache-Control", "no-cache");
+  // Allow eval for development (some UI libraries may use eval)
+  res.setHeader("Content-Security-Policy", "default-src 'self' 'unsafe-eval' 'unsafe-inline';");
   res.end(fs.readFileSync(filePath));
 }
 
@@ -225,6 +227,8 @@ function serveIndexHtml(res: ServerResponse, indexPath: string, opts: ServeIndex
     }) ?? identity.avatar;
   res.setHeader("Content-Type", "text/html; charset=utf-8");
   res.setHeader("Cache-Control", "no-cache");
+  // Allow eval for development (some UI libraries may use eval)
+  res.setHeader("Content-Security-Policy", "default-src 'self' 'unsafe-eval' 'unsafe-inline';");
   const raw = fs.readFileSync(indexPath, "utf8");
   res.end(
     injectControlUiConfig(raw, {

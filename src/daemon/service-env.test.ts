@@ -214,7 +214,7 @@ describe("buildServiceEnvironment", () => {
   it("sets minimal PATH and gateway vars", () => {
     const env = buildServiceEnvironment({
       env: { HOME: "/home/user" },
-      port: 18789,
+      port: 18798,
       token: "secret",
     });
     expect(env.HOME).toBe("/home/user");
@@ -223,7 +223,7 @@ describe("buildServiceEnvironment", () => {
     } else {
       expect(env.PATH).toContain("/usr/bin");
     }
-    expect(env.OPENHEDGEHOG_GATEWAY_PORT).toBe("18789");
+    expect(env.OPENHEDGEHOG_GATEWAY_PORT).toBe("18798");
     expect(env.OPENHEDGEHOG_GATEWAY_TOKEN).toBe("secret");
     expect(env.OPENHEDGEHOG_SERVICE_MARKER).toBe("openhedgehog");
     expect(env.OPENHEDGEHOG_SERVICE_KIND).toBe("gateway");
@@ -237,7 +237,7 @@ describe("buildServiceEnvironment", () => {
   it("uses profile-specific unit and label", () => {
     const env = buildServiceEnvironment({
       env: { HOME: "/home/user", OPENHEDGEHOG_PROFILE: "work" },
-      port: 18789,
+      port: 18798,
     });
     expect(env.OPENHEDGEHOG_SYSTEMD_UNIT).toBe("openhedgehog-gateway-work.service");
     if (process.platform === "darwin") {

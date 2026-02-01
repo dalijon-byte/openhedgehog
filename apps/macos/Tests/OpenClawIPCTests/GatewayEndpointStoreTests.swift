@@ -131,7 +131,7 @@ import Testing
         let root: [String: Any] = [
             "gateway": [
                 "remote": [
-                    "url": " ws://umbrel:18789 ",
+                    "url": " ws://umbrel:18798 ",
                 ],
             ],
         ]
@@ -178,7 +178,7 @@ import Testing
 
     @Test func normalizeGatewayUrlAddsDefaultPortForWs() {
         let url = GatewayRemoteConfig.normalizeGatewayUrl("ws://gateway")
-        #expect(url?.port == 18789)
-        #expect(url?.absoluteString == "ws://gateway:18789")
+        #expect(url?.port == 18798)
+        #expect(url?.absoluteString == "ws://gateway:18798")
     }
 }

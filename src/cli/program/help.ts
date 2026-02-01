@@ -16,7 +16,7 @@ const EXAMPLES = [
     'openhedgehog message send --target +15555550123 --message "Hi" --json',
     "Send via your web session and print JSON result.",
   ],
-  ["openhedgehog gateway --port 18789", "Run the WebSocket Gateway locally."],
+  ["openhedgehog gateway --port 18798", "Run the WebSocket Gateway locally."],
   [
     "openhedgehog --dev gateway",
     "Run a dev Gateway (isolated state/config) on ws://127.0.0.1:19001.",

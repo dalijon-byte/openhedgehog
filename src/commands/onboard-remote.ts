@@ -1,11 +1,12 @@
 import type { OpenHedgehogConfig } from "../config/config.js";
 import type { GatewayBonjourBeacon } from "../infra/bonjour-discovery.js";
 import type { WizardPrompter } from "../wizard/prompts.js";
+import { DEFAULT_GATEWAY_PORT } from "../config/paths.js";
 import { discoverGatewayBeacons } from "../infra/bonjour-discovery.js";
 import { resolveWideAreaDiscoveryDomain } from "../infra/widearea-dns.js";
 import { detectBinary } from "./onboard-helpers.js";
 
-const DEFAULT_GATEWAY_URL = "ws://127.0.0.1:18789";
+const DEFAULT_GATEWAY_URL = `ws://127.0.0.1:${DEFAULT_GATEWAY_PORT}`;
 
 function pickHost(beacon: GatewayBonjourBeacon): string | undefined {
   return beacon.tailnetDns || beacon.lanHost || beacon.host;
@@ -13,7 +14,7 @@ function pickHost(beacon: GatewayBonjourBeacon): string | undefined {
 
 function buildLabel(beacon: GatewayBonjourBeacon): string {
   const host = pickHost(beacon);
-  const port = beacon.gatewayPort ?? beacon.port ?? 18789;
+  const port = beacon.gatewayPort ?? beacon.port ?? 18798;
   const title = beacon.displayName ?? beacon.instanceName;
   const hint = host ? `${host}:${port}` : "host unknown";
   return `${title} (${hint})`;
@@ -80,7 +81,7 @@ export async function promptRemoteGatewayConfig(
 
   if (selectedBeacon) {
     const host = pickHost(selectedBeacon);
-    const port = selectedBeacon.gatewayPort ?? 18789;
+    const port = selectedBeacon.gatewayPort ?? 18798;
     if (host) {
       const mode = await prompter.select({
         message: "Connection method",
@@ -99,7 +100,7 @@ export async function promptRemoteGatewayConfig(
         await prompter.note(
           [
             "Start a tunnel before using the CLI:",
-            `ssh -N -L 18789:127.0.0.1:18789 <user>@${host}${
+            `ssh -N -L 18798:127.0.0.1:18798 <user>@${host}${
               selectedBeacon.sshPort ? ` -p ${selectedBeacon.sshPort}` : ""
             }`,
             "Docs: https://docs.openhedgehog.ai/gateway/remote",

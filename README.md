@@ -64,7 +64,7 @@ Full beginner guide (auth, pairing, channels): [Getting started](https://docs.op
 ```bash
 openhedgehog onboard --install-daemon
 
-openhedgehog gateway --port 18789 --verbose
+openhedgehog gateway --port 18798 --verbose
 
 # Send a message
 openhedgehog message send --to +1234567890 --message "Hello from OpenHedgehog"
@@ -186,7 +186,7 @@ WhatsApp / Telegram / Slack / Discord / Google Chat / Signal / iMessage / BlueBu
 ┌───────────────────────────────┐
 │            Gateway            │
 │       (control plane)         │
-│     ws://127.0.0.1:18789      │
+│     ws://127.0.0.1:18798      │
 └──────────────┬────────────────┘
                │
                ├─ Pi agent (RPC)
