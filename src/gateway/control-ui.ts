@@ -171,7 +171,10 @@ function serveFile(res: ServerResponse, filePath: string) {
   // browser to revalidate.
   res.setHeader("Cache-Control", "no-cache");
   // Allow eval for development (some UI libraries may use eval)
-  res.setHeader("Content-Security-Policy", "default-src 'self' 'unsafe-eval' 'unsafe-inline';");
+  res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'self' data:; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com;",
+  );
   res.end(fs.readFileSync(filePath));
 }
 
@@ -228,7 +231,10 @@ function serveIndexHtml(res: ServerResponse, indexPath: string, opts: ServeIndex
   res.setHeader("Content-Type", "text/html; charset=utf-8");
   res.setHeader("Cache-Control", "no-cache");
   // Allow eval for development (some UI libraries may use eval)
-  res.setHeader("Content-Security-Policy", "default-src 'self' 'unsafe-eval' 'unsafe-inline';");
+  res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'self' data:; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com;",
+  );
   const raw = fs.readFileSync(indexPath, "utf8");
   res.end(
     injectControlUiConfig(raw, {
