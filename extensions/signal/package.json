@@ -1,12 +1,12 @@
 {
-  "name": "@openclaw/signal",
+  "name": "@openhedgehog/signal",
   "version": "2026.1.30",
-  "description": "OpenClaw Signal channel plugin",
+  "description": "OpenHedgehog Signal channel plugin",
   "type": "module",
   "devDependencies": {
-    "openclaw": "workspace:*"
+    "openhedgehog": "workspace:*"
   },
-  "openclaw": {
+  "openhedgehog": {
     "extensions": [
       "./index.ts"
     ]

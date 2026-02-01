@@ -1,12 +1,12 @@
 {
-  "name": "@openclaw/mattermost",
+  "name": "@openhedgehog/mattermost",
   "version": "2026.1.30",
-  "description": "OpenClaw Mattermost channel plugin",
+  "description": "OpenHedgehog Mattermost channel plugin",
   "type": "module",
   "devDependencies": {
-    "openclaw": "workspace:*"
+    "openhedgehog": "workspace:*"
   },
-  "openclaw": {
+  "openhedgehog": {
     "extensions": [
       "./index.ts"
     ],
@@ -20,7 +20,7 @@
       "order": 65
     },
     "install": {
-      "npmSpec": "@openclaw/mattermost",
+      "npmSpec": "@openhedgehog/mattermost",
       "localPath": "extensions/mattermost",
       "defaultChoice": "npm"
     }

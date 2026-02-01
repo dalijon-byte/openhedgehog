@@ -186,9 +186,15 @@ describe("web session", () => {
   });
 
   it("rotates creds backup when creds.json is valid JSON", async () => {
-    const credsSuffix = path.join(".openclaw", "credentials", "whatsapp", "default", "creds.json");
+    const credsSuffix = path.join(
+      ".openhedgehog",
+      "credentials",
+      "whatsapp",
+      "default",
+      "creds.json",
+    );
     const backupSuffix = path.join(
-      ".openclaw",
+      ".openhedgehog",
       "credentials",
       "whatsapp",
       "default",
