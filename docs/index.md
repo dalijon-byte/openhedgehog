@@ -1,24 +1,24 @@
 ---
-summary: "Top-level overview of OpenClaw, features, and purpose"
+summary: "Top-level overview of OpenHedgehog, features, and purpose"
 read_when:
-  - Introducing OpenClaw to newcomers
-title: "OpenClaw"
+  - Introducing OpenHedgehog to newcomers
+title: "OpenHedgehog"
 ---
 
-# OpenClaw 🦞
+# OpenHedgehog 🦔
 
-> _"EXFOLIATE! EXFOLIATE!"_ — A space lobster, probably
+> _"EXFOLIATE! EXFOLIATE!"_ — A space hedgehog, probably
 
 <p align="center">
     <img
-        src="/assets/openclaw-logo-text-dark.png"
-        alt="OpenClaw"
+        src="/assets/openhedgehog-logo-text.png"
+        alt="OpenHedgehog"
         width="500"
         class="dark:hidden"
     />
     <img
-        src="/assets/openclaw-logo-text.png"
-        alt="OpenClaw"
+        src="/assets/openhedgehog-logo-text.png"
+        alt="OpenHedgehog"
         width="500"
         class="hidden dark:block"
     />
@@ -31,14 +31,14 @@ title: "OpenClaw"
 </p>
 
 <p align="center">
-  <a href="https://github.com/openclaw/openclaw">GitHub</a> ·
-  <a href="https://github.com/openclaw/openclaw/releases">Releases</a> ·
+  <a href="https://github.com/dalijon-byte/openhedgehog">GitHub</a> ·
+  <a href="https://github.com/dalijon-byte/openhedgehog/releases">Releases</a> ·
   <a href="/">Docs</a> ·
-  <a href="/start/openclaw">OpenClaw assistant setup</a>
+  <a href="/start/openhedgehog">OpenHedgehog assistant setup</a>
 </p>
 
-OpenClaw bridges WhatsApp (via WhatsApp Web / Baileys), Telegram (Bot API / grammY), Discord (Bot API / channels.discord.js), and iMessage (imsg CLI) to coding agents like [Pi](https://github.com/badlogic/pi-mono). Plugins add Mattermost (Bot API + WebSocket) and more.
-OpenClaw also powers the OpenClaw assistant.
+OpenHedgehog bridges WhatsApp (via WhatsApp Web / Baileys), Telegram (Bot API / grammY), Discord (Bot API / channels.discord.js), and iMessage (imsg CLI) to coding agents like [Pi](https://github.com/badlogic/pi-mono). Plugins add Mattermost (Bot API + WebSocket) and more.
+OpenHedgehog also powers the OpenHedgehog assistant.
 
 ## Start here
 
